@@ -1,44 +1,47 @@
 #include "sort.h"
 
 /**
- * shell_sort - Sorts an array of integers in ascending order using the Shell
- * sort algorithm
- * @array: A pointer to the integer array to be sorted
- * @size: The size of the array
+ * swap_ints - Swap two integers in an array.
+ * @a: The first integer to swap.
+ * @b: The second integer to swap.
+ */
+void swap_ints(int *a, int *b)
+{
+	int tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+/**
+ * shell_sort - Sort an array of integers in ascending
+ *              order using the shell sort algorithm.
+ * @array: An array of integers.
+ * @size: The size of the array.
  *
- * Description: This function sorts an array of integers in ascending order
- * using the Shell sort algorithm. It first generates the initial interval
- * using the Knuth sequence (h = 3 * h + 1). Starting with the largest interval
- * and reducing, it sorts elements at interval h. It does this by iterating
- * over the array, and for each element, it repeatedly swaps it with the
- * element h spaces to its left if the current element is smaller, until the
- * element is in its correct position. After sorting all elements at interval
- * h, it reduces the interval and repeats the process until the interval is 0.
- * After each pass, it prints the array using the print_array function.
+ * Description: Uses the Knuth interval sequence.
  */
 void shell_sort(int *array, size_t size)
 {
-	size_t i, j, h;
-	int temp;
+	size_t gap, i, j;
 
-	/* Generate the initial interval (Knuth sequence) */
-	for (h = 1; h < size; h = 3 * h + 1)
-		;
+	if (array == NULL || size < 2)
+		return;
 
-	/* Start with the largest interval and reduce */
-	for (h = (h - 1) / 3; h > 0; h = (h - 1) / 3)
+	for (gap = 1; gap < (size / 3);)
+		gap = gap * 3 + 1;
+
+	for (; gap >= 1; gap /= 3)
 	{
-		for (i = h; i < size; i++)
+		for (i = gap; i < size; i++)
 		{
-			temp = array[i];
 			j = i;
-
-			while (j >= h && array[j - h] > temp)
+			while (j >= gap && array[j - gap] > array[j])
 			{
-				array[j] = array[j - h];
-				j -= h;
+				swap_ints(array + j, array + (j - gap));
+				j -= gap;
 			}
-			array[j] = temp;
 		}
 		print_array(array, size);
 	}

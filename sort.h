@@ -1,9 +1,23 @@
 #ifndef SORT_H
 #define SORT_H
 
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+/* Comparison direction macros for bitonic sort */
+#define UP 0
+#define DOWN 1
+
+/**
+ * enum bool - Enumeration of Boolean values.
+ * @false: Equals 0.
+ * @true: Equals 1.
+ */
+typedef enum bool
+{
+	false = 0,
+	true
+} bool;
 
 /**
  * struct listint_s - Doubly linked list node
@@ -19,40 +33,22 @@ typedef struct listint_s
 	struct listint_s *next;
 } listint_t;
 
-/* function prototypes for mandatory tasks */
-
+/* Printing helper functions */
+void print_array(const int *array, size_t size);
 void print_list(const listint_t *list);
-void quick_sort(int *array, size_t size);
+
+/* Sorting algoritms */
 void bubble_sort(int *array, size_t size);
 void insertion_sort_list(listint_t **list);
 void selection_sort(int *array, size_t size);
-void print_array(const int *array, size_t size);
-
-/* function prototypes for quick sort using the Lomuto partition scheme */
-
-void swap(int *x, int *y);
-void _quicksort(int *array, size_t size, int low, int high);
-int lomuto_partition(int *array, size_t size, int low, int high);
-
-/* function prototypes for cocktail sort algorithm */
-
-void cocktail_sort_list(listint_t **list);
-bool left_bubble_sort(listint_t **list, listint_t **current);
-bool right_bubble_sort(listint_t **list, listint_t **current);
-
-/* function prototypes for quick sort using the Hoare's partition scheme */
-
-void quick_sort_hoare(int *array, size_t size);
-int hoare_partition(int *array, size_t size, int low, int high);
-
-/* function prototypes for merge sort */
-
-void merge_sort(int *array, size_t size);
-void _merge_sort(int *sub_array, int *temp_array, int left, int right);
-void _merge(int *sub_array, int *temp_array, int left, int mid, int right);
-
-/* function prototype for shell sort*/
-
+void quick_sort(int *array, size_t size);
 void shell_sort(int *array, size_t size);
+void cocktail_sort_list(listint_t **list);
+void counting_sort(int *array, size_t size);
+void merge_sort(int *array, size_t size);
+void heap_sort(int *array, size_t size);
+void radix_sort(int *array, size_t size);
+void bitonic_sort(int *array, size_t size);
+void quick_sort_hoare(int *array, size_t size);
 
-#endif
+#endif /* SORT_H */

@@ -1,3 +1,1 @@
-Sorting algorithms & Big O.
-
-I prefer to work alone
+Sorting algorithms & Big O project.
